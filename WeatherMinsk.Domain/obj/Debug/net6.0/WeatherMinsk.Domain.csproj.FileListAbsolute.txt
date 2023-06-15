@@ -1,0 +1,12 @@
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\bin\Debug\net6.0\WeatherMinsk.Domain.deps.json
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\bin\Debug\net6.0\WeatherMinsk.Domain.dll
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\bin\Debug\net6.0\WeatherMinsk.Domain.pdb
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\WeatherMinsk.Domain.csproj.AssemblyReference.cache
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\WeatherMinsk.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\WeatherMinsk.Domain.AssemblyInfoInputs.cache
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\WeatherMinsk.Domain.AssemblyInfo.cs
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\WeatherMinsk.Domain.csproj.CoreCompileInputs.cache
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\WeatherMinsk.Domain.dll
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\refint\WeatherMinsk.Domain.dll
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\WeatherMinsk.Domain.pdb
+C:\Test\WeatherMinsk\WeatherMinsk.Domain\obj\Debug\net6.0\ref\WeatherMinsk.Domain.dll
