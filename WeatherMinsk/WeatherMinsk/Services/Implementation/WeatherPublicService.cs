@@ -16,7 +16,7 @@ namespace WeatherMinsk.Services.Implementation
             _configuration = configuration;
         }
 
-        public async Task<WeatherDataDTO> GetWeatherDataAsync()
+        public async Task<IEnumerable<WeatherDataDTO>> GetWeatherDataAsync()
         {
             var apiSettings = _configuration.GetSection("WeatherAPI");
             var key = apiSettings.GetSection("Key").Value;
@@ -34,7 +34,7 @@ namespace WeatherMinsk.Services.Implementation
             var jsonString = await response.Content.ReadAsStringAsync();
             var weatherData = await ParseJsonString(jsonString);
 
-            return weatherData;
+            return new List<WeatherDataDTO> { weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData };
         }
 
         private async Task<WeatherDataDTO> ParseJsonString(string json)

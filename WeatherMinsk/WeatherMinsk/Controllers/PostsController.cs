@@ -24,7 +24,7 @@ namespace WeatherMinsk.Controllers
         /// <response code="400">If request to WeatherAPI failed</response>
         /// <response code="500">Internal server Error</response>
         [HttpGet]
-        [ResponseCache(Duration = 360, Location = ResponseCacheLocation.Client)]
+        //[ResponseCache(Duration = 360, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetAllPostsAsync() =>
             Ok(await _weatherPublicService.GetWeatherDataAsync());
     }

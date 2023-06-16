@@ -4,6 +4,6 @@ namespace WeatherMinsk.Services.Interfaces
 {
     public interface IWeatherPublicService
     {
-        Task<WeatherDataDTO> GetWeatherDataAsync();
+        Task<IEnumerable<WeatherDataDTO>> GetWeatherDataAsync();
     }
 }
