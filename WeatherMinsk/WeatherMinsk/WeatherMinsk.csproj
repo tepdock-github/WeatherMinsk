@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WeatherMinsk.Data\WeatherMinsk.Data.csproj" />
     <ProjectReference Include="..\WeatherMinsk.Domain\WeatherMinsk.Domain.csproj" />
   </ItemGroup>
 

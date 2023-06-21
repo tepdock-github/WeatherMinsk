@@ -14,5 +14,25 @@
             <response code="400">If request to WeatherAPI failed</response>
             <response code="500">Internal server Error</response>
         </member>
+        <member name="M:WeatherMinsk.Controllers.PostsController.GetPostByIdAsync(System.Int64)">
+            <summary>
+                Returns one post by id, if not found throws exception
+            </summary>
+            <param name="id">Id of the post</param>
+            <returns>Single post</returns>
+            <response code="200">Returns post by id</response>
+            <response code="404">If post wasn't found</response>
+            <response code="500">Internal server Error</response>
+        </member>
+        <member name="M:WeatherMinsk.Controllers.PostsController.CreatePostAsync(WeatherMinsk.Domain.DTO.WeatherDataManipulationDTO)">
+            <summary>
+                Creates post
+            </summary>
+            <param name="weatherDataDto">Post</param>
+            <returns></returns>
+            <response code="204">Operation successful</response>
+            <response code="422">Failed to validate model</response>
+            <response code="500">Internal server Error</response>
+        </member>
     </members>
 </doc>

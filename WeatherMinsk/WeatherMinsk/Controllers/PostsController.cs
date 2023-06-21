@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WeatherMinsk.Domain.DTO;
+using WeatherMinsk.Extensions.Filters;
 using WeatherMinsk.Services.Interfaces;
 
 namespace WeatherMinsk.Controllers
@@ -8,12 +10,13 @@ namespace WeatherMinsk.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IWeatherPublicService _weatherPublicService;
+        private readonly IWeatherService _weatherService;
 
-        public PostsController(IWeatherPublicService weatherPublicService)
+        public PostsController(IWeatherService weatherService)
         {
-            _weatherPublicService = weatherPublicService;
+            _weatherService = weatherService;
         }
+
 
         /// <summary>
         ///     Returns posts about weather either from databse or publicAPI
@@ -26,6 +29,34 @@ namespace WeatherMinsk.Controllers
         [HttpGet]
         //[ResponseCache(Duration = 360, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetAllPostsAsync() =>
-            Ok(await _weatherPublicService.GetWeatherDataAsync());
+            Ok(await _weatherService.GetPostsAsync());
+
+        /// <summary>
+        ///     Returns one post by id, if not found throws exception
+        /// </summary>
+        /// <param name="id">Id of the post</param>
+        /// <returns>Single post</returns>
+        /// <response code="200">Returns post by id</response>
+        /// <response code="404">If post wasn't found</response>
+        /// <response code="500">Internal server Error</response>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPostByIdAsync(long id) =>
+            Ok(await _weatherService.GetPostByIdAsync(id));
+
+        /// <summary>
+        ///     Creates post
+        /// </summary>
+        /// <param name="weatherDataDto">Post</param>
+        /// <returns></returns>
+        /// <response code="204">Operation successful</response>
+        /// <response code="422">Failed to validate model</response>
+        /// <response code="500">Internal server Error</response>
+        [HttpPost]
+        [ServiceFilter(typeof(ValidateModelFilter))]
+        public async Task<IActionResult> CreatePostAsync([FromBody] WeatherDataManipulationDTO weatherDataDto)
+        {
+            await _weatherService.CreatePostAsync(weatherDataDto);
+            return NoContent();
+        }
     }
 }

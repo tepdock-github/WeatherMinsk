@@ -6,10 +6,12 @@ namespace WeatherMinsk.Extensions
 {
     public class MapperProfile : Profile
     {
-        protected MapperProfile()
+        public MapperProfile()
         {
             CreateMap<WeatherData, WeatherDataDTO>();
-            CreateMap<WeatherDataManipulationDTO, WeatherData>();
+            CreateMap<WeatherDataManipulationDTO, WeatherData>()
+            .ForMember(dest => dest.Date, 
+                      opt => opt.MapFrom(src => DateTime.Now.ToString("yyyy-MM-dd HH:mm")));
         }
     }
 }

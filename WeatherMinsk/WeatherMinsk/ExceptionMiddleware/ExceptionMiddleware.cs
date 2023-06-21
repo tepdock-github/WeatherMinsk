@@ -30,6 +30,9 @@ namespace WeatherMinsk.ExceptionMiddleware
                     case BadRequestException:
                         statusCode = (int)HttpStatusCode.BadRequest;
                         break;
+                    case NotFoundException:
+                        statusCode = (int)HttpStatusCode.NotFound;
+                        break;
                     default:
                         statusCode = (int)HttpStatusCode.InternalServerError;
                         break;
@@ -47,7 +50,7 @@ namespace WeatherMinsk.ExceptionMiddleware
             var message = ex.Message;
             var details = ex.ToString();
 
-            _logger.LogError(ex, $"An error occured: {message}. Details: {details}");
+            _logger.LogError(ex, $"An error occured: {message}.");
 
             var problem = new ProblemDetails
             {

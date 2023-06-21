@@ -16,7 +16,7 @@ namespace WeatherMinsk.Services.Implementation
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<WeatherDataDTO>> GetWeatherDataAsync()
+        public async Task<WeatherDataManipulationDTO> GetWeatherDataAsync()
         {
             var apiSettings = _configuration.GetSection("WeatherAPI");
             var key = apiSettings.GetSection("Key").Value;
@@ -34,22 +34,22 @@ namespace WeatherMinsk.Services.Implementation
             var jsonString = await response.Content.ReadAsStringAsync();
             var weatherData = await ParseJsonString(jsonString);
 
-            return new List<WeatherDataDTO> { weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData, weatherData };
+            return  weatherData;
         }
 
-        private async Task<WeatherDataDTO> ParseJsonString(string json)
+        private async Task<WeatherDataManipulationDTO> ParseJsonString(string json)
         {
             var jsonObject = JObject.Parse(json);
 
             var name = jsonObject["location"]?["name"]?.ToString();
             var country = jsonObject["location"]?["country"]?.ToString();
             var conditionText = jsonObject["current"]?["condition"]?["text"]?.ToString();
-            var humidity = jsonObject["current"]?["humidity"]?.Value<int>() ?? 0;
-            var cloud = jsonObject["current"]?["cloud"]?.Value<int>() ?? 0;
+            var humidity = jsonObject["current"]?["humidity"]?.Value<long>() ?? 0;
+            var cloud = jsonObject["current"]?["cloud"]?.Value<long>() ?? 0;
             var tempC = jsonObject["current"]?["temp_c"]?.Value<double>() ?? 0.0;
             var tempF = jsonObject["current"]?["temp_f"]?.Value<double>() ?? 0.0;
 
-            var weatherDataDTO = new WeatherDataDTO
+            var weatherDataDTO = new WeatherDataManipulationDTO
             {
                 City = name,
                 Country = country,

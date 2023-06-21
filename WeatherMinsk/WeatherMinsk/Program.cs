@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using WeatherMinsk.ExceptionMiddleware;
 using WeatherMinsk.Extensions;
 using WeatherMinsk.Extensions.Configuration;
+using WeatherMinsk.Extensions.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ var configuration = new ConfigurationBuilder()
     .Build();
 
 var logger = LoggerConfig.CreateLogger(configuration);
+
+var connectionString = configuration.GetConnectionString("SQLiteConnection");
 
 try
 {
@@ -24,6 +28,14 @@ try
 
     builder.Services.AddControllers();
     builder.Services.AddWeatherPublicService();
+    builder.Services.AddWeatherService();
+    builder.Services.ConfigureRepositoryManager(connectionString);
+
+    builder.Services.AddScoped<ValidateModelFilter>();
+    builder.Services.Configure<ApiBehaviorOptions>(opt =>
+    {
+        opt.SuppressModelStateInvalidFilter = true;
+    });
 
     builder.Services.ConfigureVersionig();
     builder.Services.ConfigureSwagger();
@@ -31,6 +43,8 @@ try
     {
         s.IncludeXmlComments("swagger.xml");
     });
+
+    builder.Logging.AddSerilog();
     #endregion
 
     var app = builder.Build();

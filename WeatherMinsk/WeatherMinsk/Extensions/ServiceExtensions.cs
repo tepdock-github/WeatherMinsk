@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using WeatherMinsk.Services.Interfaces;
 using WeatherMinsk.Services.Implementation;
+using WeatherMinsk.Data;
 
 namespace WeatherMinsk.Extensions
 {
@@ -38,5 +39,13 @@ namespace WeatherMinsk.Extensions
 
         public static void AddWeatherPublicService(this IServiceCollection services) =>
             services.AddScoped<IWeatherPublicService, WeatherPublicService>();
+
+        public static void AddWeatherService(this IServiceCollection services) =>
+            services.AddScoped<IWeatherService, WeatherService>();
+
+        public static void ConfigureRepositoryManager(this IServiceCollection services, string connectionString) =>
+            services.AddScoped<IRepositoryManager>(provider =>
+            new RepositoryManager(connectionString));
+
     }
 }
