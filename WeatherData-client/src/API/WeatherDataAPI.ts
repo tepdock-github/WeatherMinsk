@@ -1,4 +1,4 @@
-const BASE_URL = "https://localhost:7246/api/v1";
+const BASE_URL = "http://localhost:5023/api/v1";
 
 export const fetchAllPosts = async () => {
     const response = await fetch(`${BASE_URL}/posts`);

@@ -1,0 +1,13 @@
+version: "3"
+services:
+  weatherdata-client:
+    build: ./WeatherData-client
+    container_name: weatherdata-client
+    ports:
+      - "4173:4173"
+
+  weatherdata-api:
+    build: ./WeatherMinsk
+    container_name: weatherdata-api
+    ports:
+      - "5023:80"

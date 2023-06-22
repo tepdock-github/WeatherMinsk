@@ -29,6 +29,7 @@ namespace WeatherMinsk.Data.Repositories
                 command.Parameters.AddWithValue("@TemperatureFahrenheit", entity.TemperatureCelsius);
 
                 await connection.OpenAsync();
+                await CheckAndCreateTableIfNeeded(connection);
                 await command.ExecuteNonQueryAsync();
             }
         }
@@ -42,6 +43,7 @@ namespace WeatherMinsk.Data.Repositories
                 command.Parameters.AddWithValue("@Id", id);
 
                 await connection.OpenAsync();
+                await CheckAndCreateTableIfNeeded(connection);
                 var reader = await command.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())
@@ -76,6 +78,7 @@ namespace WeatherMinsk.Data.Repositories
                 var command = new SqliteCommand(query, connection);
 
                 await connection.OpenAsync();
+                await CheckAndCreateTableIfNeeded(connection);
                 var reader = await command.ExecuteReaderAsync();
 
                 while (await reader.ReadAsync())
@@ -99,6 +102,29 @@ namespace WeatherMinsk.Data.Repositories
 
             return weatherDataList;
 
+        }
+
+        private async Task CheckAndCreateTableIfNeeded(SqliteConnection connection)
+        {
+            var checkTableQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='WeatherData'";
+            var checkTableCommand = new SqliteCommand(checkTableQuery, connection);
+            var tableName = await checkTableCommand.ExecuteScalarAsync() as string;
+
+            if (tableName == null)
+            {
+                var createTableQuery = "CREATE TABLE WeatherData (" +
+                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "City TEXT NOT NULL," +
+                    "Country TEXT NOT NULL," +
+                    "Date TEXT NOT NULL," +
+                    "Condition TEXT NOT NULL," +
+                    "Cloud INTEGER NOT NULL," +
+                    "Humidity INTEGER NOT NULL," +
+                    "TemperatureCelsius REAL NOT NULL," +
+                    "TemperatureFahrenheit REAL NOT NULL)";
+                var createTableCommand = new SqliteCommand(createTableQuery, connection);
+                await createTableCommand.ExecuteNonQueryAsync();
+            }
         }
 
     }
