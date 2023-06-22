@@ -7,11 +7,12 @@ import {
 import Post from "../../entities/post";
 import { Link } from 'react-router-dom';
 
-const PostCard: React.FC<Post> = ({
-  id,
+const PostCardDetails: React.FC<Post> = ({
   city,
   country,
   date,
+  humidity,
+  cloud,
   condition,
   temperatureCelsius,
   temperatureFahrenheit
@@ -23,14 +24,17 @@ const PostCard: React.FC<Post> = ({
                     {condition} ({temperatureCelsius}°C/{temperatureFahrenheit}°F)
                 </Typography>
                 <Typography variant="h6" color="blue-gray" className="mb-2">
-                    {date} - {city}/{country}
+                    {date}
                 </Typography>
-                <Link to={`/posts/${id}`}>
-                      <Button>More</Button>  
+                <Typography>
+                    In {city}({country}) humidity: {humidity}% and cloud: {cloud}%
+                </Typography>
+                <Link to={`/`}>
+                      <Button>Back</Button>  
                 </Link>
             </CardBody>
         </Card>
     );
 }
 
-export default PostCard;
+export default PostCardDetails;
