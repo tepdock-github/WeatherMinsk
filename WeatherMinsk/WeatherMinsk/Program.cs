@@ -21,6 +21,7 @@ try
 
     #region Services
     builder.Services.ConfigureCors();
+    builder.Services.AddResponseCaching();
 
     builder.Services.AddHttpClient();
 

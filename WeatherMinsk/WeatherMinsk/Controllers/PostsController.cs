@@ -27,6 +27,7 @@ namespace WeatherMinsk.Controllers
         /// <response code="400">If request to WeatherAPI failed</response>
         /// <response code="500">Internal server Error</response>
         [HttpGet]
+        [ResponseCache(Duration = 360, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetAllPostsAsync() =>
             Ok(await _weatherService.GetPostsAsync());
 
@@ -39,6 +40,7 @@ namespace WeatherMinsk.Controllers
         /// <response code="404">If post wasn't found</response>
         /// <response code="500">Internal server Error</response>
         [HttpGet("{id}")]
+        [ResponseCache(Duration = 360, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> GetPostByIdAsync(long id) =>
             Ok(await _weatherService.GetPostByIdAsync(id));
 
